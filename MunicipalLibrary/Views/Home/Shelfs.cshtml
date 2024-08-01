@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MunicipalLibrary.Models.Shelf>
+
+@{
+    ViewData["Title"] = "Shelfs";
+}
+
+<h1>Shelfs</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumShelf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HeightShelf)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumShelf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeightShelf)
+            </td>
+            <td>
+                    @Html.ActionLink("הוספת ספר", "CreateBook", new {id=item.Id}) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

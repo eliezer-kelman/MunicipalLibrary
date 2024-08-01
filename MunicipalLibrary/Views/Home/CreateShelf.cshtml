@@ -1,0 +1,42 @@
+﻿@model MunicipalLibrary.Models.Shelf
+
+@{
+    ViewData["Title"] = "CreateShelf";
+}
+
+<h1>CreateShelf</h1>
+
+<h4>Shelf</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateShelf">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input hidden asp-for="NumShelf" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NumShelf" class="control-label"></label>
+                <input asp-for="NumShelf" class="form-control" />
+                <span asp-validation-for="NumShelf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HeightShelf" class="control-label"></label>
+                <input asp-for="HeightShelf" class="form-control" />
+                <span asp-validation-for="HeightShelf" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input hidden asp-for="Library.Id" />
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
