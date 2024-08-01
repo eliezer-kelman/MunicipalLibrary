@@ -10,6 +10,6 @@ namespace MunicipalLibrary.Models
         public string? NameBook { get; set; }
         [Display(Name = "גובה ספר")]
         public int HeightBook { get; set; }
-        public Shelf? Shelf { get; set; }
+        public Shelf Shelf { get; set; }
     }
 }

@@ -84,6 +84,16 @@ namespace MunicipalLibrary.Controllers
             return View(shelves);
         }
 
+        public IActionResult Books(int id)
+        {
+            Shelf? shelf = Data.Get.Shelves.Include(shelf => shelf.BookList).FirstOrDefault(shelf => shelf.Id == id);
+            if (shelf == null)
+            { 
+                return NotFound(); 
+            }
+            return View(shelf.BookList);
+        }
+
         public IActionResult CreateBook(int id)
         {
             Shelf? shelf1 = Data.Get.Shelves.FirstOrDefault(shelf => shelf.Id == id);
@@ -100,17 +110,27 @@ namespace MunicipalLibrary.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult CreateBook(Book book)
         {
+            Shelf? shelf = Data.Get.Shelves.FirstOrDefault(shelf=> shelf.Id == book.Shelf.Id);
             if (book == null)
             {
                 return NotFound();
             }
-            //int num
-            if ((book.Shelf.HeightShelf) - (book.HeightBook) > 10)
+            int num = (book.Shelf.HeightShelf) - (book.HeightBook);
+            if (num > 10)
             {
                 return View();
             }
-            return View();
-
+            if (num < 0)
+            {
+                return View();
+            }
+            if (shelf == null) {
+                return NotFound(); }
+            book.Shelf = shelf;
+            book.Id = 0;
+            Data.Get.Books.Add(book);
+            Data.Get.SaveChanges();
+            return RedirectToAction("Libraries");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
